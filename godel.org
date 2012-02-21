@@ -1,0 +1,189 @@
+#+TITLE: Gödel's Incompleteness Theorem
+#+AUTHOR: Phil Hazelden
+#+DATE:      2012-02-08
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [mathserif]
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+#+BEAMER_FRAME_LEVEL: 2
+
+#+LaTeX_HEADER: \usepackage{color}
+#+LaTeX_HEADER: \newcommand{\colquo}[1]{\textcolor{red}{#1}}
+#+LATEX_HEADER: \newcommand{\shl}[1]{\text{«}^{#1}}
+#+LATEX_HEADER: \newcommand{\shr}[1]{\text{»}^{#1}}
+
+* Introduction
+** Overview
+\pause
+*** Godel's theorem says, roughly, that there are true statements about the natural numbers which cannot be proved.\pause
+*** We prove this theorem by constructing such a statement.\pause
+*** Roughly speaking, "this statement is unprovable".\pause
+**** If false, it can be proved to be true.\pause
+**** Therefore true, therefore unprovable.\pause
+*** How is this not a proof?\pause
+*** How is this statement about the natural numbers?
+
+* Peano arithmetic as a formal system
+** The "MIU" game
+\pause
+*** Played with strings containing the symbols =M=, =I=, =U=.\pause
+*** Some strings are theorems. Which?\pause
+*** Derivations: making new theorems from old.\pause
+**** \texttt{M$x$I} → \texttt{M$x$IU}\pause
+**** \texttt{M$x$} → \texttt{M$xx$}\pause
+**** \texttt{M$x$III$y$} → \texttt{M$x$U$y$}\pause
+**** \texttt{M$x$UU$y$} → \texttt{M$xy$}\pause
+*** We start with a list of initial theorems ("axioms")\pause
+**** The only axiom is =MI=.
+** An example derivation
+\pause
+- \texttt{MI} \hfill axiom\pause
+- \texttt{MII} \hfill \texttt{M$x$} → \texttt{M$xx$}\pause
+- \texttt{MIIII} \hfill \texttt{M$x$} → \texttt{M$xx$}\pause
+- \texttt{MUI} \hfill \texttt{M$x$III$y$} → \texttt{M$x$U$y$}\pause
+- \texttt{MUIU} \hfill \texttt{M$x$I} → \texttt{M$x$IU}\pause
+- \texttt{MUIUUIU} \hfill \texttt{M$x$} → \texttt{M$xx$}\pause
+- \texttt{MUIIU} \hfill \texttt{M$x$UU$y$} → \texttt{M$xy$}
+** What about nontheorems?
+\pause
+*** Is \texttt{MU} a theorem?\pause
+*** If it is, we can prove it by producing a derivation.\pause
+**** We could search derivations methodically, and eventually find MU.\pause
+*** If not, how can we prove that?\pause
+**** If we search for it, we'll never find it. But we'll never see that we'll never find it.\pause
+**** Answer: count the number of \texttt{I}s in a theorem, modulo 3.\pause
+**** This is not generalisable.
+** The "Number theory" (NT) Game
+\pause
+*** A more complicated game that mathematicians like to play.\pause
+*** Symbols: 0-9, +, ×, =, ∧, ∨, ¬, ⇒, (, ), a, b, c, $\prime$, ∀, ∃\pause
+*** Some derivation rules:\pause
+**** $w(x ∧ y)z$ → $w¬(¬x ∨ ¬y)z$ \hfill de Morgan's law\pause
+**** $(x = y)$ → $(x+1 = y+1)$ \hfill Successorship\pause
+**** $x$, $y$ → $(x ∧ y)$ \hfill Joining\pause
+**** $x\{0\}$, $∀a (x\{a\} ⇒ x\{a+1\})$ → $∀a (x\{a\})$ \hfill Induction\pause
+*** Axioms:\pause
+**** $∀a ¬(a+1 = 0)$ \pause
+**** $∀a (a+0 = a)$ \pause
+**** $∀a∀b (a + (b+1) = (a+b) + 1)$ \pause
+**** $∀a (a×0 = 0)$ \pause
+**** $∀a∀b (a × (b+1) = (a×b) + a)$
+** Is number theory complete?
+\pause
+*** A well-formed statement in the numer theory game is either:\pause
+**** True or false;\pause
+**** A theorem or nontheorem.\pause
+**** If a nontheorem, its negation might be a theorem.\pause
+*** We hope:\pause
+**** A statement is a theorem iff it is true;\pause
+**** $x$ is a theorem iff $¬x$ is a nontheorem.\pause
+**** These are (kind of) equivalent.\pause
+*** But incompleteness ruins this hope.
+* Gödel numbering
+** Gödel numbering (MIU)
+\pause
+*** Turn MIU-strings into numbers.\pause
+*** M → 1, I → 2, U → 3\pause
+*** New rules, where $x\shl{n}$ means $x\cdot 10^n$:\pause
+**** $1\shl{n+1} + x\shl{1} + 2$ → $1\shl{n+2} + x\shl{2} + 23$ where $x < 1\shl{n}$ \pause
+**** $1\shl{n} + x → 1\shl{2n} + x\shl{n} + x$, where $x < 1\shl{n}$ \pause
+**** $1\shl{m+n+3} + x\shl{m+3} + 222\shl{m} + y$ → $1\shl{m+n+1} + x\shl{m+1} + 3\shl{m} + y$, where $x < 1\shl{n}$ and $y < 1\shl{m}$ \pause
+**** $1\shl{m+n+2} + x\shl{m+2} + 33\shl{m} + y$ → $1\shl{m+n} + x\shl{m} + y$, where $x < 1\shl{n}$ and $y < 1\shl{m}$ \pause
+**** $12$ is an axiom\pause
+*** So now we have derivations like:\pause
+**** 12 → 122 → 12222 → 132 → 1323 → 1323323 → 13223
+** Gödel numbering (number theory)
+\pause
+*** Can do the same thing to the number theory game, it's just a lot more complicated.\pause
+*** For example, De Morgan's law: $w(x ∧ y)z$ → $w¬(¬x ∨ ¬y)z$.\pause
+
+#+BEGIN_LaTeX
+\small{\[
+w\shl{l+m+n+3} + \colquo{\left(\right.}\shl{l+m+n+2} + x\shl{m+n+2} + \colquo{∧}\shl{m+n+1} + y\shl{n+1} + \colquo{\left.\right)}\shl{n} + z
+\]
+→
+\[
+w\shl{l+m+n+6} + \colquo{¬\left(\right.¬}\shl{l+m+n+3} + x\shl{m+n+3} + \colquo{∨¬}\shl{m+n+1} + y\shl{n+1} + \colquo{\left.\right)}\shl{n}+z
+\]}
+where $z < 1\shl{n}$, $y < 1\shl{m}$, $x < 1\shl{l}$.
+#+END_LaTeX
+* Representation
+** What good is this?
+\pause
+*** Given an MIU-string $x$, can we construct an "equivalent" NT-string $y$?\pause
+**** If so, we can use number theory to talk about the MIU game.\pause
+**** And if so, maybe we can do the same thing to an NT-string?\pause
+**** Then we can make NT-theorems talk about NT-theorems.\pause
+**** Eventually, we need a theorem to talk about itself. So this is a good first step.\pause
+*** "Equivalent" means $y$ is an NT-theorem iff $x$ is an MIU-theorem.\pause
+**** We want to be able to do this even if we don't know whether $x$ is an MIU-theorem.\pause
+*** It turns out we can.\pause
+*** Won't prove this, but will try to convince.\pause
+**** Given a number $x$, we construct an NT-statement which is a theorem iff $x$ is the Gödel number of a well-formed MIU-statement.\pause
+**** To be precise, iff $x$ contains only the decimal digits 1, 2, 3.
+** Useful tricks
+\pause
+*** Check that a finite set of things each has some property.\pause
+*** Finite sequences are countable.\pause
+**** Can represent a sequence by a number, and use another number to extract elements from it.\pause
+*** Instead of finding a number that satisfies P, just need to ask "does $x$ satisfy P?" Then use ∃.
+** MIU-FORMED
+\pause
+*** $\text{LOG}\{a,b\}$ → $1\shl{b} > a ∧ 1\shl{b-1} ≤ a$ \pause
+*** $\text{GOOD}\{a\}$ → $a = 1 ∨ a = 2 ∨ a = 3$ \pause
+*** $\text{NTH}\{a,b,c\}$ tests whether the $b$'th digit of $a$ is $c$.\pause
+*** $\text{MIU-FORMED}\{a\}$ →\pause
+
+#+BEGIN_LaTeX
+\begin{align*}
+∃b(&\text{LOG}\{a,b\} ∧\\
+   &∃(\text{sequence }x_1\text{ to }x_b) ∀c (c < b ⇒ \text{NTH}\{a,c,x_c\} ∧ \text{GOOD}\{x_c\}))
+\end{align*}
+#+END_LaTeX
+** NT-THEOREM
+\pause
+*** If an NT-statement can be Gödel-numberised, so can an NT-derivation.\pause
+*** So given the number of a derivation, and the number of a statement, we can ask\pause
+ "Does this derivation prove this statement?"\pause
+*** This can be expressed as an NT-statement, $\text{NT-DERIVES}\{a,b\}$.\pause
+*** So we can construct:\pause
+$\text{NT-THEOREM}\{a\}$ → $∃b (\text{NT-DERIVES}\{b,a\})$.\pause
+*** Note that constructing a statement is much easier than determining its truth.
+* "This statement is unprovable"
+** Self-reference
+\pause
+*** Liar paradox: "This statement is true."\pause
+*** Not much better: P - "Q is true." Q - "P is false."\pause
+*** Quine:
+"yields falsehood when preceeded by its quotation." yields falsehood when preceeded by its quotation.\pause
+**** This turns out to be the key.
+** Quining
+\pause
+*** If an NT-statement has free variables, we can substitute any number we like into them.\pause
+*** In particular, we can substitute the Gödel number of the original statement.\pause
+*** Construct a formula $\text{QUINE}\{a,b\}$ which tests whether $b$ is "$a$ quined".\pause
+**** Essentially, $\text{QUINE}\{a,b\}$ → $b = a\{a\}$
+** "This statement is unprovable"
+\pause
+*** Let $U\{a\}$ → $¬∃b (\text{QUINE}\{a,b\} ∧ \text{NT-THEOREM}\{b\})$ \pause
+*** Let $G$ be the quinification of $U$.\pause
+*** In other words, find $G$ such that $\text{QUINE}\{U,G\}$ is true.\pause
+*** $U\{a\}$ says "$a$ quined is not a theorem." Equivalently, "is not provable."\pause
+*** So $G$ (= $U\{U\}$) says "$U$ quined is not provable."\pause
+*** But $G$ \emph{is} $U$ quined.\pause
+*** Thus, $G$ says "$G$ is not provable."
+** Aftermath
+\pause
+*** If $G$ is false, we can find a proof of $G$, and number theory is inconsistent.\pause
+*** If $G$ is true, it can't be proved, so number theory is incomplete.\pause
+*** Since $¬G$ says "$G$ is provable", $¬G$ asserts its own negation.\pause
+*** So neither $G$ nor $¬G$ is a theorem.
