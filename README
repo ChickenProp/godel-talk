@@ -1,0 +1,12 @@
+These are the slides for a talk I gave outlining a proof of Gödel's
+incompleteness theorem. The proof is based on the one given in "Gödel, Escher,
+Bach: An Eternal Golden Braid", but annoyingly I forgot to mention that in the
+talk or the slides.
+
+The master file is godel.org, which works with emacs' org-mode and the LaTeX
+beamer class. That gets compiled to the .tex, which gets compiled to the .pdf.
+
+The -nopause versions are the same, but display each slide all at once, instead
+of one bullet point at a time.
+
+The talk itself can be viewed at: http://youtu.be/j0NcE3Tnklw
