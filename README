@@ -9,4 +9,6 @@ beamer class. That gets compiled to the .tex, which gets compiled to the .pdf.
 The -nopause versions are the same, but display each slide all at once, instead
 of one bullet point at a time.
 
+To download the pdfs, you can click on them, and then click 'view raw'.
+
 The talk itself can be viewed at: http://youtu.be/j0NcE3Tnklw
