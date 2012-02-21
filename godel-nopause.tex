@@ -1,0 +1,446 @@
+% Created 2012-02-21 Tue 17:09
+\documentclass[mathserif]{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{color}
+\newcommand{\colquo}[1]{\textcolor{red}{#1}}
+\newcommand{\shl}[1]{\text{«}^{#1}}
+\newcommand{\shr}[1]{\text{»}^{#1}}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{Gödel's Incompleteness Theorem}
+\author{Phil Hazelden}
+\date{2012-02-08}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.03}}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section{Introduction}
+\label{sec-1}
+\begin{frame}
+\frametitle{Overview}
+\label{sec-1-1}
+\begin{itemize}
+
+\item Godel's theorem says, roughly, that there are true statements about the natural numbers which cannot be proved.\\
+\label{sec-1-1-1}%
+\item We prove this theorem by constructing such a statement.\\
+\label{sec-1-1-2}%
+\item Roughly speaking, ``this statement is unprovable''.
+\label{sec-1-1-3}%
+\begin{itemize}
+
+\item If false, it can be proved to be true.\\
+\label{sec-1-1-3-1}%
+\item Therefore true, therefore unprovable.\\
+\label{sec-1-1-3-2}%
+\end{itemize} % ends low level
+
+\item How is this not a proof?\\
+\label{sec-1-1-4}%
+\item How is this statement about the natural numbers?\\
+\label{sec-1-1-5}%
+\end{itemize} % ends low level
+\end{frame}
+\section{Peano arithmetic as a formal system}
+\label{sec-2}
+\begin{frame}
+\frametitle{The ``MIU'' game}
+\label{sec-2-1}
+\begin{itemize}
+
+\item Played with strings containing the symbols \texttt{M}, \texttt{I}, \texttt{U}.\\
+\label{sec-2-1-1}%
+\item Some strings are theorems. Which?\\
+\label{sec-2-1-2}%
+\item Derivations: making new theorems from old.
+\label{sec-2-1-3}%
+\begin{itemize}
+
+\item \texttt{M$x$I} → \texttt{M$x$IU}\\
+\label{sec-2-1-3-1}%
+\item \texttt{M$x$} → \texttt{M$xx$}\\
+\label{sec-2-1-3-2}%
+\item \texttt{M$x$III$y$} → \texttt{M$x$U$y$}\\
+\label{sec-2-1-3-3}%
+\item \texttt{M$x$UU$y$} → \texttt{M$xy$}\\
+\label{sec-2-1-3-4}%
+\end{itemize} % ends low level
+
+\item We start with a list of initial theorems (``axioms'')
+\label{sec-2-1-4}%
+\begin{itemize}
+
+\item The only axiom is \texttt{MI}.\\
+\label{sec-2-1-4-1}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{An example derivation}
+\label{sec-2-2}
+
+\begin{itemize}
+\item \texttt{MI} \hfill axiom
+\item \texttt{MII} \hfill \texttt{M$x$} → \texttt{M$xx$}
+\item \texttt{MIIII} \hfill \texttt{M$x$} → \texttt{M$xx$}
+\item \texttt{MUI} \hfill \texttt{M$x$III$y$} → \texttt{M$x$U$y$}
+\item \texttt{MUIU} \hfill \texttt{M$x$I} → \texttt{M$x$IU}
+\item \texttt{MUIUUIU} \hfill \texttt{M$x$} → \texttt{M$xx$}
+\item \texttt{MUIIU} \hfill \texttt{M$x$UU$y$} → \texttt{M$xy$}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{What about nontheorems?}
+\label{sec-2-3}
+\begin{itemize}
+
+\item Is \texttt{MU} a theorem?\\
+\label{sec-2-3-1}%
+\item If it is, we can prove it by producing a derivation.
+\label{sec-2-3-2}%
+\begin{itemize}
+
+\item We could search derivations methodically, and eventually find MU.\\
+\label{sec-2-3-2-1}%
+\end{itemize} % ends low level
+
+\item If not, how can we prove that?
+\label{sec-2-3-3}%
+\begin{itemize}
+
+\item If we search for it, we'll never find it. But we'll never see that we'll never find it.\\
+\label{sec-2-3-3-1}%
+\item Answer: count the number of \texttt{I}s in a theorem, modulo 3.\\
+\label{sec-2-3-3-2}%
+\item This is not generalisable.\\
+\label{sec-2-3-3-3}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{The ``Number theory'' (NT) Game}
+\label{sec-2-4}
+\begin{itemize}
+
+\item A more complicated game that mathematicians like to play.\\
+\label{sec-2-4-1}%
+\item Symbols: 0-9, +, ×, =, ∧, ∨, ¬, ⇒, (, ), a, b, c, $\prime$, ∀, ∃\\
+\label{sec-2-4-2}%
+\item Some derivation rules:
+\label{sec-2-4-3}%
+\begin{itemize}
+
+\item $w(x ∧ y)z$ → $w¬(¬x ∨ ¬y)z$ \hfill de Morgan's law\\
+\label{sec-2-4-3-1}%
+\item $(x = y)$ → $(x+1 = y+1)$ \hfill Successorship\\
+\label{sec-2-4-3-2}%
+\item $x$, $y$ → $(x ∧ y)$ \hfill Joining\\
+\label{sec-2-4-3-3}%
+\item $x\{0\}$, $∀a (x\{a\} ⇒ x\{a+1\})$ → $∀a (x\{a\})$ \hfill Induction\\
+\label{sec-2-4-3-4}%
+\end{itemize} % ends low level
+
+\item Axioms:
+\label{sec-2-4-4}%
+\begin{itemize}
+
+\item $∀a ¬(a+1 = 0)$\\
+\label{sec-2-4-4-1}%
+\item $∀a (a+0 = a)$\\
+\label{sec-2-4-4-2}%
+\item $∀a∀b (a + (b+1) = (a+b) + 1)$\\
+\label{sec-2-4-4-3}%
+\item $∀a (a×0 = 0)$\\
+\label{sec-2-4-4-4}%
+\item $∀a∀b (a × (b+1) = (a×b) + a)$\\
+\label{sec-2-4-4-5}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{Is number theory complete?}
+\label{sec-2-5}
+\begin{itemize}
+
+\item A well-formed statement in the numer theory game is either:
+\label{sec-2-5-1}%
+\begin{itemize}
+
+\item True or false;\\
+\label{sec-2-5-1-1}%
+\item A theorem or nontheorem.\\
+\label{sec-2-5-1-2}%
+\item If a nontheorem, its negation might be a theorem.\\
+\label{sec-2-5-1-3}%
+\end{itemize} % ends low level
+
+\item We hope:
+\label{sec-2-5-2}%
+\begin{itemize}
+
+\item A statement is a theorem iff it is true;\\
+\label{sec-2-5-2-1}%
+\item $x$ is a theorem iff $¬x$ is a nontheorem.\\
+\label{sec-2-5-2-2}%
+\item These are (kind of) equivalent.\\
+\label{sec-2-5-2-3}%
+\end{itemize} % ends low level
+
+\item But incompleteness ruins this hope.\\
+\label{sec-2-5-3}%
+\end{itemize} % ends low level
+\end{frame}
+\section{Gödel numbering}
+\label{sec-3}
+\begin{frame}
+\frametitle{Gödel numbering (MIU)}
+\label{sec-3-1}
+\begin{itemize}
+
+\item Turn MIU-strings into numbers.\\
+\label{sec-3-1-1}%
+\item M → 1, I → 2, U → 3\\
+\label{sec-3-1-2}%
+\item New rules, where $x\shl{n}$ means $x\cdot 10^n$:
+\label{sec-3-1-3}%
+\begin{itemize}
+
+\item $1\shl{n+1} + x\shl{1} + 2$ → $1\shl{n+2} + x\shl{2} + 23$ where $x < 1\shl{n}$\\
+\label{sec-3-1-3-1}%
+\item $1\shl{n} + x → 1\shl{2n} + x\shl{n} + x$, where $x < 1\shl{n}$\\
+\label{sec-3-1-3-2}%
+\item $1\shl{m+n+3} + x\shl{m+3} + 222\shl{m} + y$ → $1\shl{m+n+1} + x\shl{m+1} + 3\shl{m} + y$, where $x < 1\shl{n}$ and $y < 1\shl{m}$\\
+\label{sec-3-1-3-3}%
+\item $1\shl{m+n+2} + x\shl{m+2} + 33\shl{m} + y$ → $1\shl{m+n} + x\shl{m} + y$, where $x < 1\shl{n}$ and $y < 1\shl{m}$\\
+\label{sec-3-1-3-4}%
+\item $12$ is an axiom\\
+\label{sec-3-1-3-5}%
+\end{itemize} % ends low level
+
+\item So now we have derivations like:
+\label{sec-3-1-4}%
+\begin{itemize}
+
+\item 12 → 122 → 12222 → 132 → 1323 → 1323323 → 13223\\
+\label{sec-3-1-4-1}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{Gödel numbering (number theory)}
+\label{sec-3-2}
+\begin{itemize}
+
+\item Can do the same thing to the number theory game, it's just a lot more complicated.\\
+\label{sec-3-2-1}%
+\item For example, De Morgan's law: $w(x ∧ y)z$ → $w¬(¬x ∨ ¬y)z$.\\
+\label{sec-3-2-2}%
+\small{\[
+w\shl{l+m+n+3} + \colquo{\left(\right.}\shl{l+m+n+2} + x\shl{m+n+2} + \colquo{∧}\shl{m+n+1} + y\shl{n+1} + \colquo{\left.\right)}\shl{n} + z
+\]
+→
+\[
+w\shl{l+m+n+6} + \colquo{¬\left(\right.¬}\shl{l+m+n+3} + x\shl{m+n+3} + \colquo{∨¬}\shl{m+n+1} + y\shl{n+1} + \colquo{\left.\right)}\shl{n}+z
+\]}
+where $z < 1\shl{n}$, $y < 1\shl{m}$, $x < 1\shl{l}$.
+\end{itemize} % ends low level
+\end{frame}
+\section{Representation}
+\label{sec-4}
+\begin{frame}
+\frametitle{What good is this?}
+\label{sec-4-1}
+\begin{itemize}
+
+\item Given an MIU-string $x$, can we construct an ``equivalent'' NT-string $y$?
+\label{sec-4-1-1}%
+\begin{itemize}
+
+\item If so, we can use number theory to talk about the MIU game.\\
+\label{sec-4-1-1-1}%
+\item And if so, maybe we can do the same thing to an NT-string?\\
+\label{sec-4-1-1-2}%
+\item Then we can make NT-theorems talk about NT-theorems.\\
+\label{sec-4-1-1-3}%
+\item Eventually, we need a theorem to talk about itself. So this is a good first step.\\
+\label{sec-4-1-1-4}%
+\end{itemize} % ends low level
+
+\item ``Equivalent'' means $y$ is an NT-theorem iff $x$ is an MIU-theorem.
+\label{sec-4-1-2}%
+\begin{itemize}
+
+\item We want to be able to do this even if we don't know whether $x$ is an MIU-theorem.\\
+\label{sec-4-1-2-1}%
+\end{itemize} % ends low level
+
+\item It turns out we can.\\
+\label{sec-4-1-3}%
+\item Won't prove this, but will try to convince.
+\label{sec-4-1-4}%
+\begin{itemize}
+
+\item Given a number $x$, we construct an NT-statement which is a theorem iff $x$ is the Gödel number of a well-formed MIU-statement.\\
+\label{sec-4-1-4-1}%
+\item To be precise, iff $x$ contains only the decimal digits 1, 2, 3.\\
+\label{sec-4-1-4-2}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{Useful tricks}
+\label{sec-4-2}
+\begin{itemize}
+
+\item Check that a finite set of things each has some property.\\
+\label{sec-4-2-1}%
+\item Finite sequences are countable.
+\label{sec-4-2-2}%
+\begin{itemize}
+
+\item Can represent a sequence by a number, and use another number to extract elements from it.\\
+\label{sec-4-2-2-1}%
+\end{itemize} % ends low level
+
+\item Instead of finding a number that satisfies P, just need to ask ``does $x$ satisfy P?'' Then use ∃.\\
+\label{sec-4-2-3}%
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{MIU-FORMED}
+\label{sec-4-3}
+\begin{itemize}
+
+\item $\text{LOG}\{a,b\}$ → $1\shl{b} > a ∧ 1\shl{b-1} ≤ a$\\
+\label{sec-4-3-1}%
+\item $\text{GOOD}\{a\}$ → $a = 1 ∨ a = 2 ∨ a = 3$\\
+\label{sec-4-3-2}%
+\item $\text{NTH}\{a,b,c\}$ tests whether the $b$'th digit of $a$ is $c$.\\
+\label{sec-4-3-3}%
+\item $\text{MIU-FORMED}\{a\}$ →\\
+\label{sec-4-3-4}%
+\begin{align*}
+∃b(&\text{LOG}\{a,b\} ∧\\
+   &∃(\text{sequence }x_1\text{ to }x_b) ∀c (c < b ⇒ \text{NTH}\{a,c,x_c\} ∧ \text{GOOD}\{x_c\}))
+\end{align*}
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{NT-THEOREM}
+\label{sec-4-4}
+\begin{itemize}
+
+\item If an NT-statement can be Gödel-numberised, so can an NT-derivation.\\
+\label{sec-4-4-1}%
+\item So given the number of a derivation, and the number of a statement, we can ask\\
+\label{sec-4-4-2}%
+``Does this derivation prove this statement?''
+
+\item This can be expressed as an NT-statement, $\text{NT-DERIVES}\{a,b\}$.\\
+\label{sec-4-4-3}%
+\item So we can construct:\\
+\label{sec-4-4-4}%
+$\text{NT-THEOREM}\{a\}$ → $∃b (\text{NT-DERIVES}\{b,a\})$.
+
+\item Note that constructing a statement is much easier than determining its truth.\\
+\label{sec-4-4-5}%
+\end{itemize} % ends low level
+\end{frame}
+\section{``This statement is unprovable''}
+\label{sec-5}
+\begin{frame}
+\frametitle{Self-reference}
+\label{sec-5-1}
+\begin{itemize}
+
+\item Liar paradox: ``This statement is true.''\\
+\label{sec-5-1-1}%
+\item Not much better: P - ``Q is true.'' Q - ``P is false.''\\
+\label{sec-5-1-2}%
+\item Quine:\\
+\label{sec-5-1-3}%
+``yields falsehood when preceeded by its quotation.'' yields falsehood when preceeded by its quotation.
+\begin{itemize}
+
+\item This turns out to be the key.\\
+\label{sec-5-1-3-1}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{Quining}
+\label{sec-5-2}
+\begin{itemize}
+
+\item If an NT-statement has free variables, we can substitute any number we like into them.\\
+\label{sec-5-2-1}%
+\item In particular, we can substitute the Gödel number of the original statement.\\
+\label{sec-5-2-2}%
+\item Construct a formula $\text{QUINE}\{a,b\}$ which tests whether $b$ is ``$a$ quined''.
+\label{sec-5-2-3}%
+\begin{itemize}
+
+\item Essentially, $\text{QUINE}\{a,b\}$ → $b = a\{a\}$\\
+\label{sec-5-2-3-1}%
+\end{itemize} % ends low level
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{``This statement is unprovable''}
+\label{sec-5-3}
+\begin{itemize}
+
+\item Let $U\{a\}$ → $¬∃b (\text{QUINE}\{a,b\} ∧ \text{NT-THEOREM}\{b\})$\\
+\label{sec-5-3-1}%
+\item Let $G$ be the quinification of $U$.\\
+\label{sec-5-3-2}%
+\item In other words, find $G$ such that $\text{QUINE}\{U,G\}$ is true.\\
+\label{sec-5-3-3}%
+\item $U\{a\}$ says ``$a$ quined is not a theorem.'' Equivalently, ``is not provable.''\\
+\label{sec-5-3-4}%
+\item So $G$ (= $U\{U\}$) says ``$U$ quined is not provable.''\\
+\label{sec-5-3-5}%
+\item But $G$ \emph{is} $U$ quined.\\
+\label{sec-5-3-6}%
+\item Thus, $G$ says ``$G$ is not provable.''\\
+\label{sec-5-3-7}%
+\end{itemize} % ends low level
+\end{frame}
+\begin{frame}
+\frametitle{Aftermath}
+\label{sec-5-4}
+\begin{itemize}
+
+\item If $G$ is false, we can find a proof of $G$, and number theory is inconsistent.\\
+\label{sec-5-4-1}%
+\item If $G$ is true, it can't be proved, so number theory is incomplete.\\
+\label{sec-5-4-2}%
+\item Since $¬G$ says ``$G$ is provable'', $¬G$ asserts its own negation.\\
+\label{sec-5-4-3}%
+\item So neither $G$ nor $¬G$ is a theorem.\\
+\label{sec-5-4-4}%
+\end{itemize} % ends low level
+\end{frame}
+
+\end{document}
